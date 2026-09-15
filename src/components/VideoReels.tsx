@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { useRef, useState } from "react";
+import { motion, useAnimationFrame, useMotionValue } from "framer-motion";
 import { ArrowRight, Heart, Play, Volume2, VolumeX } from "lucide-react";
 import Reveal from "./Reveal";
 
@@ -83,21 +83,23 @@ function ReelCard({ reel }: { reel: (typeof REELS)[number] }) {
   );
 }
 
-export default function VideoReels() {
-  const trackRef = useRef<HTMLDivElement>(null);
-  const [dragWidth, setDragWidth] = useState(0);
+const LOOP_REELS = [...REELS, ...REELS];
 
-  useEffect(() => {
-    const measure = () => {
-      const track = trackRef.current?.firstElementChild as HTMLElement | null;
-      if (track && trackRef.current) {
-        setDragWidth(Math.max(track.scrollWidth - trackRef.current.clientWidth, 0));
-      }
-    };
-    measure();
-    window.addEventListener("resize", measure);
-    return () => window.removeEventListener("resize", measure);
-  }, []);
+export default function VideoReels() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const x = useMotionValue(0);
+  const paused = useRef(false);
+
+  useAnimationFrame((_, delta) => {
+    if (paused.current) return;
+    const track = trackRef.current;
+    if (!track) return;
+    const halfWidth = track.scrollWidth / 2;
+    let next = x.get() - (delta / 1000) * 40;
+    if (next <= -halfWidth) next += halfWidth;
+    x.set(next);
+  });
 
   return (
     <section id="reels" className="relative overflow-hidden bg-charcoal py-24 sm:py-32">
@@ -125,25 +127,33 @@ export default function VideoReels() {
         </Reveal>
       </div>
 
-      <div className="mt-14 cursor-grab active:cursor-grabbing" ref={trackRef}>
+      <div
+        ref={containerRef}
+        className="mt-14 cursor-grab overflow-hidden active:cursor-grabbing"
+        onMouseEnter={() => (paused.current = true)}
+        onMouseLeave={() => (paused.current = false)}
+      >
         <motion.div
+          ref={trackRef}
           drag="x"
-          dragConstraints={{ left: -dragWidth, right: 0 }}
+          style={{ x }}
+          dragConstraints={containerRef}
           dragElastic={0.08}
-          className="flex gap-5 px-6 sm:px-8 lg:px-[max(2rem,calc((100vw-80rem)/2+2rem))]"
+          onDragStart={() => (paused.current = true)}
+          onDragEnd={() => (paused.current = false)}
+          className="flex w-max gap-5 px-6 sm:px-8 lg:px-[max(2rem,calc((100vw-80rem)/2+2rem))]"
         >
-          {REELS.map((reel, i) => (
+          {LOOP_REELS.map((reel, i) => (
             <motion.div
-              key={reel.src}
+              key={`${reel.src}-${i}`}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
-              transition={{ delay: i * 0.07, duration: 0.6 }}
+              transition={{ delay: (i % REELS.length) * 0.07, duration: 0.6 }}
             >
               <ReelCard reel={reel} />
             </motion.div>
           ))}
-          <div className="w-2 shrink-0" />
         </motion.div>
       </div>
     </section>
