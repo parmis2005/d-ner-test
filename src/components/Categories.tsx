@@ -13,7 +13,7 @@ const CATEGORIES = [
   { icon: Drumstick, label: "Teller", sub: "Mit Reis & Salat", image: "/images/doner-6.jpg" },
   { icon: Flame, label: "Feuer-Pommes", sub: "Mit Feta & Chili", image: "/images/reel-fries-poster.jpg" },
   { icon: Salad, label: "Salate", sub: "Frisch vom Markt", image: "/images/ingredients-1.jpg" },
-  { icon: CupSoda, label: "Ayran & Tee", sub: "Hausgemacht", image: "/images/ingredients-2.jpg" },
+  { icon: CupSoda, label: "Ayran & Tee", sub: "Hausgemacht", image: "/images/tea.jpg" },
 ];
 
 export default function Categories() {
