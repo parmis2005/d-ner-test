@@ -1,26 +1,106 @@
 @import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-charcoal: #120e0d;
+  --color-charcoal-light: #1c1614;
+  --color-fire: #ea3b23;
+  --color-fire-light: #ff6a3d;
+  --color-ember: #ffb648;
+  --color-gold: #e8b64f;
+  --color-cream: #fdf6ec;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-charcoal: var(--color-charcoal);
+  --color-charcoal-light: var(--color-charcoal-light);
+  --color-fire: var(--color-fire);
+  --color-fire-light: var(--color-fire-light);
+  --color-ember: var(--color-ember);
+  --color-gold: var(--color-gold);
+  --color-cream: var(--color-cream);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background: var(--color-charcoal);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body), Arial, Helvetica, sans-serif;
+}
+
+.font-display {
+  font-family: var(--font-display), sans-serif;
+  letter-spacing: 0.02em;
+}
+
+::selection {
+  background: var(--color-fire);
+  color: white;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-charcoal);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-fire);
+  border-radius: 999px;
+}
+
+.text-stroke {
+  -webkit-text-stroke: 1.5px var(--color-cream);
+  color: transparent;
+}
+
+.leaflet-container {
+  background: var(--color-charcoal-light) !important;
+  font-family: var(--font-body), sans-serif;
+}
+
+.leaflet-popup-content-wrapper {
+  background: var(--color-charcoal-light);
+  color: var(--color-cream);
+  border-radius: 14px;
+  border: 1px solid rgba(232, 182, 79, 0.35);
+}
+
+.leaflet-popup-tip {
+  background: var(--color-charcoal-light);
+}
+
+.leaflet-popup-content-wrapper a {
+  color: var(--color-fire-light);
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 28s linear infinite;
+}
+
+@keyframes flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.75;
+  }
+}
+
+.animate-flicker {
+  animation: flicker 2.4s ease-in-out infinite;
 }
