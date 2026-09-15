@@ -46,9 +46,9 @@ export default function Categories() {
                 alt={cat.label}
                 fill
                 sizes="(max-width: 640px) 50vw, 25vw"
-                className="object-cover opacity-0 transition-all duration-700 group-hover:scale-110 group-hover:opacity-100"
+                className="object-cover opacity-100 transition-all duration-700 sm:opacity-0 sm:group-hover:scale-110 sm:group-hover:opacity-100"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/60 to-charcoal/20 transition-opacity duration-500 group-hover:from-charcoal group-hover:via-charcoal/40 group-hover:to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/70 to-charcoal/30 transition-opacity duration-500 sm:from-charcoal sm:via-charcoal/60 sm:to-charcoal/20 sm:group-hover:from-charcoal sm:group-hover:via-charcoal/40 sm:group-hover:to-transparent" />
               <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 p-4 text-center">
                 <span className="flex h-16 w-16 items-center justify-center rounded-full bg-fire/15 text-fire-light ring-1 ring-fire/30 transition-all duration-500 group-hover:bg-fire group-hover:text-cream group-hover:shadow-lg group-hover:shadow-fire/40">
                   <cat.icon className="h-7 w-7" />
