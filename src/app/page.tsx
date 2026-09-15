@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import USPBar from "@/components/USPBar";
 import About from "@/components/About";
 import Menu from "@/components/Menu";
+import VideoReels from "@/components/VideoReels";
 import Gallery from "@/components/Gallery";
 import Testimonials from "@/components/Testimonials";
 import OrderCTA from "@/components/OrderCTA";
@@ -18,6 +19,7 @@ export default function Home() {
         <USPBar />
         <About />
         <Menu />
+        <VideoReels />
         <Gallery />
         <Testimonials />
         <OrderCTA />

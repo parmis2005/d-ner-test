@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { Clock, Mail, MapPin, Phone, Send } from "lucide-react";
+import Reveal from "./Reveal";
 
 const MapView = dynamic(() => import("./MapView"), {
   ssr: false,
@@ -22,17 +23,17 @@ export default function Contact() {
   return (
     <section id="kontakt" className="relative bg-charcoal py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 sm:px-8">
-        <div className="mx-auto max-w-2xl text-center">
+        <Reveal className="mx-auto max-w-2xl text-center">
           <span className="text-sm font-bold uppercase tracking-[0.2em] text-fire-light">
             Kontakt & Anfahrt
           </span>
           <h2 className="mt-4 font-display text-5xl text-cream sm:text-6xl">
             BESUCH UNS <span className="text-fire-light">VOR ORT</span>
           </h2>
-        </div>
+        </Reveal>
 
         <div className="mt-14 grid grid-cols-1 gap-8 lg:grid-cols-5">
-          <div className="order-2 flex flex-col gap-6 lg:order-1 lg:col-span-2">
+          <Reveal y={30} className="order-2 flex flex-col gap-6 lg:order-1 lg:col-span-2">
             <div className="rounded-3xl border border-white/10 bg-charcoal-light p-7">
               <div className="flex items-start gap-4">
                 <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-fire-light" />
@@ -103,11 +104,11 @@ export default function Contact() {
             >
               <Send className="h-4 w-4" /> Tisch reservieren
             </a>
-          </div>
+          </Reveal>
 
-          <div className="order-1 h-[400px] overflow-hidden rounded-3xl border border-white/10 lg:order-2 lg:col-span-3 lg:h-auto">
+          <Reveal y={30} delay={0.1} className="order-1 h-[400px] overflow-hidden rounded-3xl border border-white/10 lg:order-2 lg:col-span-3 lg:h-auto">
             <MapView />
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>

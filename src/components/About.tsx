@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Flame } from "lucide-react";
+import Reveal from "./Reveal";
 
 const STATS = [
   { value: "2014", label: "Gegründet" },
@@ -11,15 +12,18 @@ export default function About() {
   return (
     <section id="ueber-uns" className="relative bg-charcoal py-24 sm:py-32">
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-14 px-6 sm:px-8 lg:grid-cols-2 lg:gap-20">
-        <div className="relative order-2 lg:order-1">
+        <Reveal y={40} className="relative order-2 lg:order-1">
           <div className="relative aspect-[4/5] w-full max-w-md overflow-hidden rounded-[2rem] shadow-2xl shadow-black/50">
-            <Image
-              src="/images/chef-1.jpg"
-              alt="Koch grillt Fleisch am offenen Feuer bei Ateş Feuerdöner"
-              fill
-              sizes="(max-width: 1024px) 90vw, 480px"
-              className="object-cover"
-            />
+            <video
+              className="h-full w-full object-cover"
+              autoPlay
+              muted
+              loop
+              playsInline
+              poster="/images/reel-flatbread-poster.jpg"
+            >
+              <source src="/videos/reel-flatbread.mp4" type="video/mp4" />
+            </video>
           </div>
           <div className="absolute -bottom-8 -right-4 aspect-[4/5] w-40 overflow-hidden rounded-2xl border-4 border-charcoal shadow-2xl sm:-right-10 sm:w-56">
             <Image
@@ -36,9 +40,9 @@ export default function About() {
               Seit 2014 in Berlin
             </span>
           </div>
-        </div>
+        </Reveal>
 
-        <div className="order-1 lg:order-2">
+        <Reveal y={40} delay={0.1} className="order-1 lg:order-2">
           <span className="text-sm font-bold uppercase tracking-[0.2em] text-fire-light">
             Unsere Geschichte
           </span>
@@ -71,7 +75,7 @@ export default function About() {
               </div>
             ))}
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

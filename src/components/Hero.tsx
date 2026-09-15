@@ -1,12 +1,28 @@
 "use client";
 
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { ChevronDown, Star } from "lucide-react";
 
 export default function Hero() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+  const videoScale = useTransform(scrollYProgress, [0, 1], [1, 1.25]);
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, 120]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+
   return (
-    <section id="top" className="relative flex h-[100svh] min-h-[640px] w-full items-center justify-center overflow-hidden">
-      <video
+    <section
+      ref={sectionRef}
+      id="top"
+      className="relative flex h-[100svh] min-h-[640px] w-full items-center justify-center overflow-hidden"
+    >
+      <motion.video
         className="absolute inset-0 h-full w-full object-cover"
+        style={{ scale: videoScale }}
         autoPlay
         muted
         loop
@@ -14,12 +30,15 @@ export default function Hero() {
         poster="/images/hero-poster.jpg"
       >
         <source src="/videos/hero.mp4" type="video/mp4" />
-      </video>
+      </motion.video>
 
       <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/60 to-black/50" />
       <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-transparent to-black/70" />
 
-      <div className="relative z-10 mx-auto flex max-w-5xl flex-col items-center px-6 text-center">
+      <motion.div
+        style={{ y: contentY, opacity: contentOpacity }}
+        className="relative z-10 mx-auto flex max-w-5xl flex-col items-center px-6 text-center"
+      >
         <div className="mb-6 flex items-center gap-2 rounded-full border border-ember/40 bg-black/30 px-4 py-1.5 backdrop-blur-sm">
           <div className="flex">
             {Array.from({ length: 5 }).map((_, i) => (
@@ -56,7 +75,7 @@ export default function Hero() {
             Speisekarte ansehen
           </a>
         </div>
-      </div>
+      </motion.div>
 
       <a
         href="#ueber-uns"
