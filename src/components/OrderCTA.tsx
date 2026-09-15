@@ -31,7 +31,7 @@ export default function OrderCTA() {
         muted
         loop
         playsInline
-        poster="/images/doner-3.jpg"
+        poster="/images/hero-poster.jpg"
       >
         <source src="/videos/bg-flames.mp4" type="video/mp4" />
       </video>

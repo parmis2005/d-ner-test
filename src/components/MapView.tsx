@@ -1,11 +1,11 @@
 "use client";
 
-import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import { useEffect } from "react";
+import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 import L from "leaflet";
 import { renderToStaticMarkup } from "react-dom/server";
 import { Flame } from "lucide-react";
-
-const POSITION: [number, number] = [52.4996, 13.418];
+import { LOCATIONS } from "@/data/locations";
 
 const markerIcon = L.divIcon({
   html: renderToStaticMarkup(
@@ -19,31 +19,40 @@ const markerIcon = L.divIcon({
   className: "",
   iconSize: [40, 40],
   iconAnchor: [20, 20],
+  popupAnchor: [0, -18],
 });
 
-export default function MapView() {
+function FlyTo({ target }: { target: [number, number] | null }) {
+  const map = useMap();
+  useEffect(() => {
+    if (target) map.flyTo(target, 15, { duration: 1.2 });
+  }, [target, map]);
+  return null;
+}
+
+export default function MapView({ active }: { active: string | null }) {
+  const target = LOCATIONS.find((l) => l.id === active)?.coords ?? null;
+
   return (
-    <MapContainer
-      center={POSITION}
-      zoom={15}
-      scrollWheelZoom={false}
-      className="h-full w-full"
-    >
+    <MapContainer center={[52.513, 13.42]} zoom={12} scrollWheelZoom={false} className="h-full w-full">
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> Mitwirkende'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <Marker position={POSITION} icon={markerIcon}>
-        <Popup>
-          <div className="font-body">
-            <strong className="font-display text-base tracking-wide">
-              Ateş Feuerdöner
-            </strong>
-            <br />
-            Musterstraße 27, 10999 Berlin
-          </div>
-        </Popup>
-      </Marker>
+      <FlyTo target={target} />
+      {LOCATIONS.map((loc) => (
+        <Marker key={loc.id} position={loc.coords} icon={markerIcon}>
+          <Popup>
+            <div className="font-body">
+              <strong className="font-display text-base tracking-wide">{loc.name}</strong>
+              <br />
+              {loc.street}, {loc.city}
+              <br />
+              <span className="text-xs">{loc.hours}</span>
+            </div>
+          </Popup>
+        </Marker>
+      ))}
     </MapContainer>
   );
 }

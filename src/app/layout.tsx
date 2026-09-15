@@ -38,7 +38,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="de"
-      className={`${bebas.variable} ${inter.variable} h-full antialiased scroll-smooth`}
+      className={`${bebas.variable} ${inter.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-charcoal text-white font-body">
         {children}

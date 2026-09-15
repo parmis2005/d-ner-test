@@ -6,7 +6,11 @@ Moderne, vollständig responsive Next.js-Webseite für den (fiktiven) Döner-Imb
 
 ## Features
 
-- Vollbild-Hero-Bereich mit Video-Hintergrund
+- Vollbild-Hero mit Video, Glut-Partikeln und Parallax
+- Scroll-Story „So entsteht dein Döner" mit vier wechselnden Videos
+- Instagram-Reel-Carousel (6 Videos, hover-to-play, Ton-Toggle)
+- Signature-Showcase, Gründer-Sektion, Kategorien, News, Feuer-Club, Franchise
+- Smooth-Scrolling (Lenis), Scroll-Reveal, Text-Reveal, animierte Zähler, Lightbox
 - Über-uns-Bereich mit Story & Statistiken
 - Interaktive Speisekarte mit Kategorien-Tabs
 - Foto-Galerie
